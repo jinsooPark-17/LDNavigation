@@ -12,12 +12,14 @@ from geometry_msgs.msg import PoseWithCovarianceStamped
 from sensor_msgs.msg import LaserScan
 # Draw tools
 import numpy as np
+import matplotlib
 import matplotlib.pyplot as plt
 from tf.transformations import euler_from_quaternion
 
-waypoint = [Pose( Point(28.0, 9.50, 0), Quaternion(0,0,0,1) ),\
-            Pose( Point(28.0, 18.0, 0), Quaternion(0,0,1,0) ),\
-            Pose( Point(0.00, 18.0, 0), Quaternion(0,0,-0.707,0.707) ),]
+matplotlib.use('Agg')
+waypoints = [Pose( Point(28.0, 9.50, 0), Quaternion(0,0,0,1) ),\
+             Pose( Point(28.0, 18.0, 0), Quaternion(0,0,1,0) ),\
+             Pose( Point(0.00, 18.0, 0), Quaternion(0,0,-0.707,0.707) ),]
 
 class TestEnv:
     def __init__(self):
@@ -58,7 +60,8 @@ class TestEnv:
         self.move_base.send_goal_and_wait( goal )
 
     def test(self):
-        for waypoint in random.shuffle( waypoints ):
+        random.shuffle( waypoints )
+        for waypoint in waypoints:
             self.move( waypoint )
 
 if __name__ == "__main__":
