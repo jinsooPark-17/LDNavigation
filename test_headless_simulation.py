@@ -13,10 +13,10 @@ from sensor_msgs.msg import LaserScan
 # Draw tools
 import numpy as np
 import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from tf.transformations import euler_from_quaternion
 
-matplotlib.use('Agg')
 waypoints = [Pose( Point(28.0, 9.50, 0), Quaternion(0,0,0,1) ),\
              Pose( Point(28.0, 18.0, 0), Quaternion(0,0,1,0) ),\
              Pose( Point(0.00, 18.0, 0), Quaternion(0,0,-0.707,0.707) ),]
