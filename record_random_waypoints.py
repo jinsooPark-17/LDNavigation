@@ -27,7 +27,7 @@ class TestEnv:
         self.entity = "marvin"
         self.move_base = SimpleActionClient('{}/move_base'.format(self.entity), MoveBaseAction)
         self.move_base.wait_for_server()
-        self.bag = rosbag.Bag('record-{}.bag'.format(sys.argv[1]), 'w')
+        self.bag = rosbag.Bag('result/record-{}.bag'.format(sys.argv[1]), 'w')
         self.record = False
 
         self.sub_odom = rospy.Subscriber("/{}/odom".format(self.entity),
@@ -93,7 +93,7 @@ if __name__ == "__main__":
     env.bag.close()
 
     # Draw trajectory and corresponding lidar scan from bag file to image
-    bag = rosbag.Bag('record-{}.bag'.format(sys.argv[1]))
+    bag = rosbag.Bag('result/record-{}.bag'.format(sys.argv[1]))
     odom, amcl, xs, ys = [],[],[],[]
     i=1
     for topic, msg, t in bag.read_messages(topics=bag.get_type_and_topic_info()[1].keys()):
@@ -127,4 +127,4 @@ if __name__ == "__main__":
     plt.plot(odom[:,0], odom[:,1], c='b', label = 'odom')
     plt.plot(amcl[:,0], amcl[:,1], c='r', linestyle=":", label = "amcl")
     plt.legend()
-    plt.savefig('result-{}.png'.format(sys.argv[1]))
+    plt.savefig('result/IMG-{}.png'.format(sys.argv[1]))
